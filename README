@@ -10,3 +10,8 @@ The list of tests is not complete. That is, all tests green does not ensure
 correct working of the plugin (this is done by the plugin's integration tests),
 but a *non* working test indicates a problem with a specific Drools version.
 
+
+This project uses Maven Profiles to control which Drools version to run the tests
+against. So when running the tests, please make sure to activate *exactly* one profile.
+The profile names can be obtained from the POM or your favourite IDE after importing
+the pom.xml as a Maven project.
