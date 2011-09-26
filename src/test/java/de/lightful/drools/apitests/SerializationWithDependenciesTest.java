@@ -52,18 +52,17 @@ public class SerializationWithDependenciesTest {
     knowledgeBuilder.add(stringResource(DECLARED_TYPE_ONE), ResourceType.DRL);
     knowledgeBuilder.add(stringResource(DECLARED_TYPE_TWO), ResourceType.DRL);
     knowledgeBuilder.add(stringResource(RULE_USING_BOTH_TYPES), ResourceType.DRL);
-
     final Collection<KnowledgePackage> knowledgePackages = knowledgeBuilder.getKnowledgePackages();
 
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    DroolsStreamUtils.streamOut(byteArrayOutputStream, knowledgePackages);
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    DroolsStreamUtils.streamOut(outputStream, knowledgePackages);
+    ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+    final Object deserializedObject = DroolsStreamUtils.streamIn(inputStream);
 
-    ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
-    final Object deserializedKnowledge = DroolsStreamUtils.streamIn(byteArrayInputStream);
-    assertThat(deserializedKnowledge).isNotNull();
-    assertThat(deserializedKnowledge).isInstanceOf(Collection.class);
-    Collection<Object> deserializedObjects = (Collection<Object>) deserializedKnowledge;
-    assertThat(deserializedObjects).hasSize(2);
+    assertThat(deserializedObject).isNotNull();
+    assertThat(deserializedObject).isInstanceOf(Collection.class);
+    Collection<Object> deserializedCollection = (Collection<Object>) deserializedObject;
+    assertThat(deserializedCollection).hasSize(2);
   }
 
   private Resource stringResource(String droolsSourcecodeSnippet) {
