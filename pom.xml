@@ -101,4 +101,9 @@
 
   </profiles>
 
+  <scm>
+    <connection>scm:git:git@github.com:maven-drools/drools-api-tests.git</connection>
+    <developerConnection>scm:git:git@github.com:maven-drools/drools-api-tests.git</developerConnection>
+  </scm>
+
 </project>
