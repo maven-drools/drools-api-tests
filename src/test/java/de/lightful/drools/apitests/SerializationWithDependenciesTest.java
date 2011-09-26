@@ -25,6 +25,7 @@ import org.drools.core.util.DroolsStreamUtils;
 import org.drools.definition.KnowledgePackage;
 import org.drools.io.Resource;
 import org.drools.io.ResourceFactory;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.ByteArrayInputStream;
@@ -64,12 +65,47 @@ public class SerializationWithDependenciesTest {
                                                      "    insertLogical(\"TOO YOUNG: \" + $person.name )\n" +
                                                      "end";
 
+  public static final String RULE_USING_NONE_OF_THESE_TYPES = "package rules;\n" +
+                                                              "\n" +
+                                                              "dialect \"mvel\"\n" +
+                                                              "\n" +
+                                                              "rule \"fire always\"\n" +
+                                                              "  when\n" +
+                                                              "    //\n" +
+                                                              "  then\n" +
+                                                              "    insertLogical(\"RULE FIRED. \")\n" +
+                                                              "end";
+
+  private KnowledgeBuilder knowledgeBuilder;
+
+  @BeforeMethod
+  protected void setUp() throws Exception {
+    knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+  }
+
   @Test
-  public void testCanSerializeAndDeSerialize() throws Exception {
-    KnowledgeBuilder knowledgeBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
+  public void testCanSerializeAndDeSerializeWithDependencies() throws Exception {
     knowledgeBuilder.add(stringResource(DECLARED_TYPE_ONE), ResourceType.DRL);
     knowledgeBuilder.add(stringResource(DECLARED_TYPE_TWO), ResourceType.DRL);
     knowledgeBuilder.add(stringResource(RULE_USING_BOTH_TYPES), ResourceType.DRL);
+    final Collection<KnowledgePackage> knowledgePackages = knowledgeBuilder.getKnowledgePackages();
+
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    DroolsStreamUtils.streamOut(outputStream, knowledgePackages);
+    ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+    final Object deserializedObject = DroolsStreamUtils.streamIn(inputStream);
+
+    assertThat(deserializedObject).isNotNull();
+    assertThat(deserializedObject).isInstanceOf(Collection.class);
+    Collection<Object> deserializedCollection = (Collection<Object>) deserializedObject;
+    assertThat(deserializedCollection).hasSize(2);
+  }
+
+  @Test
+  public void testCanSerializeAndDeSerializeWithoutDependencies() throws Exception {
+    knowledgeBuilder.add(stringResource(DECLARED_TYPE_ONE), ResourceType.DRL);
+    knowledgeBuilder.add(stringResource(DECLARED_TYPE_TWO), ResourceType.DRL);
+    knowledgeBuilder.add(stringResource(RULE_USING_NONE_OF_THESE_TYPES), ResourceType.DRL);
     final Collection<KnowledgePackage> knowledgePackages = knowledgeBuilder.getKnowledgePackages();
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
