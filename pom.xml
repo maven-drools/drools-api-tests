@@ -99,9 +99,9 @@
     </profile>
 
     <profile>
-      <id>drools.runtime.version=5.3.0.CR1</id>
+      <id>drools.runtime.version=5.3.0.Final</id>
       <properties>
-        <drools.runtime.version>5.3.0.CR1</drools.runtime.version>
+        <drools.runtime.version>5.3.0.Final</drools.runtime.version>
       </properties>
       <dependencies>
         <dependency>
