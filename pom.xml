@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2009-2011 Ansgar Konermann
+  ~ Copyright (c) 2009-2012 Ansgar Konermann
   ~
   ~ This file is part of the "Maven 3 Drools Support" Package.
   ~
@@ -23,8 +23,8 @@
 
   <parent>
     <groupId>de.lightful.poms</groupId>
-    <artifactId>standard-plugins</artifactId>
-    <version>29</version>
+    <artifactId>standard-build</artifactId>
+    <version>32</version>
   </parent>
 
   <groupId>de.lightful.maven.drools</groupId>
