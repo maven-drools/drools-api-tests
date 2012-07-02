@@ -48,32 +48,6 @@
   </dependencies>
 
   <profiles>
-
-    <profile>
-      <id>drools.runtime.version=5.1.1</id>
-      <properties>
-        <drools.runtime.version>5.1.1</drools.runtime.version>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.drools</groupId>
-          <artifactId>drools-api</artifactId>
-          <version>${drools.runtime.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.drools</groupId>
-          <artifactId>drools-core</artifactId>
-          <version>${drools.runtime.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.drools</groupId>
-          <artifactId>drools-compiler</artifactId>
-          <version>${drools.runtime.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-
-
     <profile>
       <id>drools.runtime.version=5.2.0.Final</id>
       <properties>
@@ -122,6 +96,29 @@
       </dependencies>
     </profile>
 
+    <profile>
+      <id>drools.runtime.version=5.4.0.Final</id>
+      <properties>
+        <drools.runtime.version>5.4.0.Final</drools.runtime.version>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.drools</groupId>
+          <artifactId>knowledge-api</artifactId>
+          <version>${drools.runtime.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.drools</groupId>
+          <artifactId>drools-core</artifactId>
+          <version>${drools.runtime.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.drools</groupId>
+          <artifactId>drools-compiler</artifactId>
+          <version>${drools.runtime.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
   </profiles>
 
   <scm>
